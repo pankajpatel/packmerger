@@ -1,0 +1,24 @@
+{
+  "name": "packmerger",
+  "version": "0.0.1",
+  "description": "Merging Utility for package.json",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pankajpatel/packmerger.git"
+  },
+  "keywords": [
+    "git",
+    "package.json",
+    "merge"
+  ],
+  "author": "Pankaj Patel <patel.pankaj@live.in> (http://pankaj.pro)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/pankajpatel/packmerger/issues"
+  },
+  "homepage": "https://github.com/pankajpatel/packmerger#readme"
+}
