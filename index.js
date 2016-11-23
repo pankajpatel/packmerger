@@ -14,19 +14,19 @@ program
     // urlValue = url
     // outputDir = output ? path.resolve(output) : process.cwd()
     console.log(primary, files)
-    getData()
+    getData(primary, files)
   })
 program.parse(process.argv)
 
-if (process.argv.slice(2).length < 2) {
+if (process.argv.slice(2).length < 1) {
   program.outputHelp()
   process.exit()
 }
 
 
-function getData() {
+function getData(primary, files) {
   // readJson(filename, [logFunction=noop], [strict=false], cb)
-  readJson('./package.json', console.error, false, function (er, data) {
+  readJson(primary, console.error, false, function (er, data) {
     if (er) {
       console.error("There was an error reading the file")
       return
