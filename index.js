@@ -54,11 +54,30 @@ function prepareData(file, data, callback) {
     callback()
   }
 
-  if(count == (total) ){
+  if(count == total ){
     finallyDoMerge()
   }
 }
 
 function finallyDoMerge() {
   console.log(count, allData)
+
+
+}
+
+function comapreVersion(version1, version2){
+  let rev1 = version1.substr(1).split('.');
+  let rev2 = version2.substr(1).split('.');
+  for(let i=0;i<3;i++){
+    let n1=Number(rev1[i]);
+    let n2=Number(rev2[i]);
+    if(n1!==n2){
+      if(n1>n2){
+        return version1; 
+      } else{
+        return version2;
+      }
+      break;
+    }
+  }
 }
