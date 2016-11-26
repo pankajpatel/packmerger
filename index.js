@@ -6,8 +6,11 @@ var program = require('commander');
 var pkg = require('./package');
 
 var allData = {};
+var mainFile = null;
+var remainingFiles = null;
 var count = 0;
 var total = 0;
+var mergeKeys = ['dependencies', 'devDependencies', 'scripts'];
 
 program
   .version(pkg.version)
@@ -18,6 +21,8 @@ program
     // urlValue = url
     // outputDir = output ? path.resolve(output) : process.cwd()
     console.log(primary, files)
+    mainFile = primary;
+    remainingFiles = files;
     total = files.length + 1;
     getData(primary, files)
   })
@@ -62,9 +67,11 @@ function prepareData(file, data, callback) {
 function finallyDoMerge() {
   console.log(count, allData)
 
-  console.log(comapreVersion('^3.1.5', '^3.2.5'));
-  console.log(comapreVersion('^3.1.5', '^3.0.5'));
-  console.log(comapreVersion('^3.1.5', '^3.1.1'));
+  for (var i = 0; i < remainingFiles.length; i++) {
+    var file = remainingFiles[i];
+    var data = allData[file];
+
+  }
 
 }
 
