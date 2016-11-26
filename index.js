@@ -62,6 +62,9 @@ function prepareData(file, data, callback) {
 function finallyDoMerge() {
   console.log(count, allData)
 
+  console.log(comapreVersion('^3.1.5', '^3.2.5'));
+  console.log(comapreVersion('^3.1.5', '^3.0.5'));
+  console.log(comapreVersion('^3.1.5', '^3.1.1'));
 
 }
 
