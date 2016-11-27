@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 
 var readJson = require('read-package-json')
-var argv = require('minimist')(process.argv.slice(2))
 var program = require('commander');
+var semver = require('semver');
 var pkg = require('./package');
 
 var allData = {};
@@ -11,6 +11,7 @@ var remainingFiles = null;
 var count = 0;
 var total = 0;
 var mergeKeys = ['dependencies', 'devDependencies', 'scripts'];
+var output = {};
 
 program
   .version(pkg.version)
@@ -65,13 +66,30 @@ function prepareData(file, data, callback) {
 }
 
 function finallyDoMerge() {
-  console.log(count, allData)
+  // console.log(count, allData)
 
   for (var i = 0; i < remainingFiles.length; i++) {
     var file = remainingFiles[i];
     var data = allData[file];
-
+    for ( var j = mergeKeys.length - 1; j >= 0; j--) {
+      if( data[mergeKeys[j]] !== undefined ){
+        var pkgKey = data[mergeKeys[j]];
+        if( output[mergeKeys[j]] === undefined ){
+          output[mergeKeys[j]] = {};
+        }
+        var packages = Object.keys(pkgKey);
+        for (var k = 0; k < packages.length; k++) {
+          if( output[mergeKeys[j]][packages[k]] === undefined ){
+            output[mergeKeys[j]][packages[k]] = pkgKey[packages[k]];
+          } else {
+            output[mergeKeys[j]][packages[k]] = comapreVersion(output[mergeKeys[j]][packages[k]], pkgKey[packages[k]])
+          }
+        }
+      }
+    }
   }
+  console.log(output)
+  // console.log(semver.validRange('^3.5.0'))
 
 }
 
