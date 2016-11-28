@@ -10,7 +10,7 @@ var mainFile = null;
 var remainingFiles = null;
 var count = 0;
 var total = 0;
-var mergeKeys = ['dependencies', 'devDependencies', 'scripts'];
+var mergeKeys = ['dependencies', 'devDependencies'];
 var output = {};
 
 program
@@ -66,8 +66,6 @@ function prepareData(file, data, callback) {
 }
 
 function finallyDoMerge() {
-  // console.log(count, allData)
-
   for (var i = 0; i < remainingFiles.length; i++) {
     var file = remainingFiles[i];
     var data = allData[file];
@@ -89,8 +87,6 @@ function finallyDoMerge() {
     }
   }
   console.log(output)
-  // console.log(semver.validRange('^3.5.0'))
-
 }
 
 function comapreVersion(version1, version2){
