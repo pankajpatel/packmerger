@@ -66,8 +66,9 @@ function prepareData(file, data, callback) {
 }
 
 function finallyDoMerge() {
-  for (var i = 0; i < remainingFiles.length; i++) {
-    var file = remainingFiles[i];
+  let files = Object.keys(allData);
+  for (var i = 0; i < files.length; i++) {
+    var file = files[i];
     var data = allData[file];
     for ( var j = mergeKeys.length - 1; j >= 0; j--) {
       if( data[mergeKeys[j]] !== undefined ){
@@ -97,7 +98,7 @@ function comapreVersion(version1, version2){
     let n2=Number(rev2[i]);
     if(n1!==n2){
       if(n1>n2){
-        return version1; 
+        return version1;
       } else{
         return version2;
       }
