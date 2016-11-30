@@ -23,6 +23,7 @@
   "homepage": "https://github.com/pankajpatel/packmerger#readme",
   "dependencies": {
     "commander": "^2.9.0",
+    "json-beautify": "^1.0.1",
     "read-package-json": "^2.0.4",
     "semver": "^5.3.0"
   }

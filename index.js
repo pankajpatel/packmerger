@@ -4,6 +4,8 @@ var readJson = require('read-package-json')
 var program = require('commander');
 var semver = require('semver');
 var pkg = require('./package');
+var fs = require('fs');
+var beautify = require("json-beautify");
 
 var allData = {};
 var mainFile = null;
@@ -12,11 +14,12 @@ var count = 0;
 var total = 0;
 var mergeKeys = ['dependencies', 'devDependencies'];
 var output = {};
+var path = null;
 
 program
   .version(pkg.version)
   .arguments('<primary> [files...]')
-  .option('-o, --out', 'Output to file')
+  .option('-o, --out [path]', 'Output to file', path)
   .option('-f, --force', 'Overwriting existing files')
   .action((primary, files) => {
     // urlValue = url
@@ -88,6 +91,32 @@ function finallyDoMerge() {
     }
   }
   console.log(output)
+  console.log(program.out)
+  for ( var j = mergeKeys.length - 1; j >= 0; j--) {
+    if( pkg[mergeKeys[j]] === undefined ){
+      pkg[mergeKeys[j]] = {};
+    }
+    pkg[mergeKeys[j]] = output[mergeKeys[j]];
+  }
+
+  saveFile(beautify(pkg, null, 2, 80));
+}
+
+function saveFile(data) {
+  var fileName = '';
+  if( program.out ){
+    fileName = program.out;
+  } else {
+    fileName = './package.json';
+  }
+  fs.writeFile(fileName, data, 'utf-8', function(e){
+    if(e){
+      console.error(e);
+      process.exit();
+    }
+
+    console.log('Done writing following data:', data);
+  })
 }
 
 function comapreVersion(version1, version2){
