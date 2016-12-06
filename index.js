@@ -18,8 +18,8 @@ var path = null;
 program
   .version(pkg.version)
   .arguments('<primary> [files...]')
-  .option('-o, --out [path]', 'Output to file', path)
-  .option('-f, --force', 'Overwriting existing files')
+  // .option('-o, --out', 'Output to file')
+  // .option('-f, --force', 'Overwriting existing files')
   .action((primary, files) => {
     // urlValue = url
     // outputDir = output ? path.resolve(output) : process.cwd()
@@ -90,7 +90,7 @@ function finallyDoMerge() {
     }
   }
   console.log(output)
-  console.log(program.out)
+  
   for ( var j = mergeKeys.length - 1; j >= 0; j--) {
     if( pkg[mergeKeys[j]] === undefined ){
       pkg[mergeKeys[j]] = {};
