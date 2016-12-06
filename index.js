@@ -2,7 +2,6 @@
 
 var readJson = require('read-package-json')
 var program = require('commander');
-var semver = require('semver');
 var pkg = require('./package');
 var fs = require('fs');
 var beautify = require("json-beautify");
