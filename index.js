@@ -90,7 +90,7 @@ function finallyDoMerge() {
     }
   }
   console.log(output)
-  
+
   for ( var j = mergeKeys.length - 1; j >= 0; j--) {
     if( pkg[mergeKeys[j]] === undefined ){
       pkg[mergeKeys[j]] = {};
@@ -108,6 +108,7 @@ function saveFile(data) {
   } else {
     fileName = './package.json';
   }
+  createBackup(fileName);
   fs.writeFile(fileName, data, 'utf-8', function(e){
     if(e){
       console.error(e);
@@ -116,6 +117,16 @@ function saveFile(data) {
 
     console.log('Done writing following data:', data);
   })
+}
+
+function createBackup(fileName) {
+  fileName = fileName || './package.json';
+  if( fs.existsSync(fileName) ){
+    var data = fs.readFileSync(fileName);
+    var backupCounter = 0;
+    while(fs.existsSync(fileName + '.' + (backupCounter++) ) );
+    fs.writeFileSync(fileName + '.' + backupCounter, data);
+  }
 }
 
 function comapreVersion(version1, version2){
@@ -127,10 +138,9 @@ function comapreVersion(version1, version2){
     if(n1!==n2){
       if(n1>n2){
         return version1;
-      } else{
+      } else {
         return version2;
       }
-      break;
     }
   }
 }
